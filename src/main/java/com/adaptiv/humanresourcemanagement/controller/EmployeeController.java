@@ -42,7 +42,7 @@ public class EmployeeController {
 
 	@ResponseStatus(value = HttpStatus.CREATED)
 	@RequestMapping(method = RequestMethod.POST)
-	public EmployeeDto createOne(@Valid @RequestBody EmployeeDto employeeDto) throws RestApiException {
+	public EmployeeDto createOneEmployee(@Valid @RequestBody EmployeeDto employeeDto) throws RestApiException {
 		try {
 			Employee employeeToPersist = employeeMapper.fromDtoToEntity(employeeDto);
 			employeeService.createOne(employeeToPersist);
@@ -55,7 +55,7 @@ public class EmployeeController {
 
 	@ResponseStatus(value = HttpStatus.OK)
 	@RequestMapping(method = RequestMethod.PUT)
-	public EmployeeDto updateOne(@Valid @RequestBody EmployeeDto employeeDto) throws RestApiException {
+	public EmployeeDto updateOneEmployee(@Valid @RequestBody EmployeeDto employeeDto) throws RestApiException {
 		try {
 			Employee employeeToUpdate = employeeMapper.fromDtoToEntity(employeeDto);
 			return employeeMapper.fromEntityToDto(employeeService.updateOne(employeeToUpdate));
@@ -67,7 +67,7 @@ public class EmployeeController {
 
 	@ResponseStatus(value = HttpStatus.FOUND)
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public EmployeeDto findOne(@PathVariable Long id) throws RestApiException {
+	public EmployeeDto findOneByPK(@PathVariable Long id) throws RestApiException {
 		try {
 			Employee foundEmployee = employeeService.findOneById(id);
 			return employeeMapper.fromEntityToDto(foundEmployee);
@@ -78,7 +78,7 @@ public class EmployeeController {
 	}
 
 	@RequestMapping(method = RequestMethod.GET)
-	public List<EmployeeDto> getAll() throws RestApiException {
+	public List<EmployeeDto> getAllEmployees() throws RestApiException {
 		try {
 			List<Employee> foundEmployee = employeeService.getAll();
 			return employeeMapper.fromEntityToDto(foundEmployee);
@@ -90,7 +90,7 @@ public class EmployeeController {
 
 	@ResponseStatus(value = HttpStatus.FOUND)
 	@RequestMapping(value = "/department/{id}", method = RequestMethod.GET)
-	public List<EmployeeDto> findByDepartmentId(@PathVariable("id") Long departmentId) throws RestApiException {
+	public List<EmployeeDto> findEmploeesByTheirDepartmentId(@PathVariable("id") Long departmentId) throws RestApiException {
 		try {
 			List<Employee> foundEmployees = employeeService.findByDepartmentId(departmentId);
 			return employeeMapper.fromEntityToDto(foundEmployees);
@@ -101,12 +101,12 @@ public class EmployeeController {
 	}
 
 	@RequestMapping(value = "/{id}/hours", method = RequestMethod.GET)
-	public long finfNumberOfWorkHoursBetween2DateById(
+	public long finfNumWorkHoursOfEmployee(
 			@RequestParam("startDate") @DateTimeFormat(pattern = "dd/MM/yyyy HH:mm:ss.SSS") Date startDate,
 			@RequestParam("endDate") @DateTimeFormat(pattern = "dd/MM/yyyy HH:mm:ss.SSS") Date endDate,
 			@PathVariable("id") Long id) throws RestApiException {
 		try {
-			return employeeService.finfNumberOfWorkHoursBetween2DateById(startDate, endDate, id);
+			return employeeService.findNumWorkHoursOfEmployeeById(startDate, endDate, id);
 		} catch (Exception e) {
 			logger.error(ExceptionType.COULD_NOT_FIND_API, e);
 			throw new RestApiException(ExceptionType.COULD_NOT_FIND_API, e);

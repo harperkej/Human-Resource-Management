@@ -18,5 +18,5 @@ public interface EmployeeService {
 
 	public List<Employee> findByDepartmentId(Long id) throws ServiceException;
 
-	public long finfNumberOfWorkHoursBetween2DateById(Date startDate, Date endDate, long id) throws ServiceException;
+	public long findNumWorkHoursOfEmployeeById(Date startDate, Date endDate, long id) throws ServiceException;
 }

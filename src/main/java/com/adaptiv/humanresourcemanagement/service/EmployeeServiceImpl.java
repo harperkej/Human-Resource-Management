@@ -75,7 +75,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 		}
 	}
 
-	public long finfNumberOfWorkHoursBetween2DateById(Date startDate, Date endDate, long id) throws ServiceException {
+	public long findNumWorkHoursOfEmployeeById(Date startDate, Date endDate, long id) throws ServiceException {
 		try {
 			long numberOfHoursAtWork = 0;
 			Calendar checkInCalendar;
